@@ -1,0 +1,28 @@
+<resources>
+    <string name="aes_seed" translatable="false">aosidufyrte73ixk</string>
+
+    <!-- ========= Error Code Start ========= -->
+    <string name="INTERNAL_SERVER_ERROR" translatable="false">Internal Server Error 伺服器錯誤</string>
+    <string name="BAD_GATEWAY" translatable="false">Bad Gateway</string>
+    <string name="NOT_FOUND" translatable="false">Not Found 未找到請求資源</string>
+    <string name="CONNECTION_TIMEOUT" translatable="false">Request Timeout 請求逾時</string>
+    <string name="NETWORK_NOT_CONNECT" translatable="false">Network Not Connect</string>
+    <string name="UNEXPECTED_ERROR" translatable="false">Unexpected Error</string>
+    <string name="UNKNOWN_HOST" translatable="false">UnknownHostException (Please Check Network)</string>
+    <string name="JSON_PARSE_EXCEPTION" translatable="false">JsonParseException</string>
+    <string name="NETWORK_ON_MAIN_THREAD" translatable="false">NetworkOnMainThreadException</string>
+    <string name="SOCKET_TIMEOUT" translatable="false">SocketTimeoutException</string>
+    <string name="LOGIN_REQUIRED" translatable="false">login required</string>
+    <string name="DB_NOT_NEWEST" translatable="false">發生錯誤，您看到的可能不是最新資料。</string>
+    <string name="UNKNOWN" translatable="false">Unknown</string>
+    <string name="NO_ERROR" translatable="false">No Error</string>
+    <!-- ========= Error Code Continue ========= -->
+
+
+    <string name="show_views" translatable="false">%s 次</string>
+    <string name="secondNameTitle" translatable="false">劇 名：</string>
+    <string name="scrollViewTitle" translatable="false">觀看次數：</string>
+    <string name="secondDateTitle" translatable="false">上映日期：</string>
+    <string name="not_found" translatable="false">找不到資料，試試其它關鍵字吧!</string>
+    <string name="top1_title" translatable="false">最多人觀看 Top1</string>
+</resources>

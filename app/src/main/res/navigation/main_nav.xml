@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/launchFragment">
+
+    <fragment
+        android:id="@+id/launchFragment"
+        android:name="com.willy.interviewdemo2.ui.launch.LaunchFragment"
+        android:label="fragment_launch"
+        tools:layout="@layout/fragment_launch" >
+        <action
+            android:id="@+id/action_launchFragment_to_firstFragment"
+            app:destination="@id/firstFragment"
+            app:popUpTo="@id/launchFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.willy.interviewdemo2.ui.first.FirstFragment"
+        android:label="first_fragment"
+        tools:layout="@layout/first_fragment">
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/secondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="com.willy.interviewdemo2.ui.SecondFragment"
+        android:label="second_fragment"
+        tools:layout="@layout/second_fragment">
+        <!--我的 Blog 文章： SafeArgs: http://0rz.tw/QRdJf-->
+        <argument
+            android:name="drama"
+            app:argType="com.willy.interviewdemo2.data.api.model.Drama" />
+    </fragment>
+</navigation>

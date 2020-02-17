@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".ui.SecondFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/secondImg"
+        app:layout_constraintBottom_toBottomOf="@id/guideLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/secondNameTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/secondNameTitle"
+        app:layout_constraintBottom_toTopOf="@id/scrollViewTitle"
+        app:layout_constraintEnd_toEndOf="@id/guideLineV"
+        app:layout_constraintTop_toBottomOf="@id/guideLine" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/scrollViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/scrollViewTitle"
+        app:layout_constraintBottom_toTopOf="@id/secondDateTitle"
+        app:layout_constraintEnd_toEndOf="@id/guideLineV"
+        app:layout_constraintTop_toBottomOf="@id/secondNameTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/secondDateTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/secondDateTitle"
+        app:layout_constraintBottom_toTopOf="@id/secondRating"
+        app:layout_constraintEnd_toEndOf="@id/guideLineV"
+        app:layout_constraintTop_toBottomOf="@id/scrollViewTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/secondName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/secondNameTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideLineV" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/secondViews"
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/scrollViewTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideLineV" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/secondDate"
+        android:layout_width="0dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/secondDateTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideLineV" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/secondRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:theme="@style/RatingBar"
+        app:layout_constraintTop_toBottomOf="@id/secondDateTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

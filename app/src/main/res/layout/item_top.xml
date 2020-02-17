@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemTopCardView"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:elevation="16dp"
+    android:padding="16dp"
+    android:layout_margin="4dp"
+    tools:context=".ui.first.FirstFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/itemTopThumb"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemTopTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@string/top1_title"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="40dp"
+            android:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@id/itemTopThumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/itemTopName"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemTopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@id/itemTopThumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemTopTitle"
+            app:layout_constraintBottom_toTopOf="@id/itemTopDate"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemTopDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/itemTopThumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemTopName"
+            app:layout_constraintBottom_toTopOf="@id/itemTopRating" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/itemTopRating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:theme="@style/RatingBar"
+            app:layout_constraintStart_toEndOf="@id/itemTopThumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemTopDate"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

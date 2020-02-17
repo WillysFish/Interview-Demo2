@@ -1,0 +1,136 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: "androidx.navigation.safeargs"
+
+apply plugin: 'kotlin-kapt'
+
+
+def VERSION_CODE = 10000
+def VERSION_NAME = "1.0.0"
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.willy.interviewdemo2"
+        minSdkVersion 26
+        targetSdkVersion 29
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt {
+            arguments {
+                // 我的 Blog 文章: http://0rz.tw/c2O1E
+                // 將 DB schema export 在 app/schemas 路徑下
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // 使用 productFlavors 至少需要定義一個維度
+    flavorDimensions 'mySingle'
+    productFlavors {
+        dev {
+            // 依環境變動 applicationId (實現多環境同時安裝)
+            applicationId "com.willy.interviewdemo2" + "." + name
+
+            // 依環境變動 app_name (便於辯識 app 環境)
+            resValue "string", "app_name", "InterviewDemo2 " + name
+
+            // 依環境變動 versionCode
+            versionCode(VERSION_CODE + 300000)
+
+            // 依環境變動的參數
+            buildConfigField "String", "BASE_URL", "\"https://static.linetv.tw/\""
+        }
+        sit {
+            applicationId "com.willy.interviewdemo2" + "." + name
+            resValue "string", "app_name", "InterviewDemo2 " + name
+            versionCode(VERSION_CODE + 200000)
+            buildConfigField "String", "BASE_URL", "\"https://static.linetv.tw/\""
+        }
+        uat {
+            applicationId "com.willy.interviewdemo2" + "." + name
+            resValue "string", "app_name", "InterviewDemo2 " + name
+            versionCode(VERSION_CODE + 100000)
+            buildConfigField "String", "BASE_URL", "\"https://static.linetv.tw/\""
+        }
+        production {
+            resValue "string", "app_name", "InterviewDemo2"
+            buildConfigField "String", "BASE_URL", "\"https://static.linetv.tw/\""
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Room
+    // 我的 Blog 文章 Room: http://0rz.tw/BLDUv
+    kapt "androidx.room:room-compiler:$room_version"                    // For Kotlin use kapt instead of annotationProcessor
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"               // Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"           // RxJava support for Room
+
+    // UI
+    // 我的 Blog 文章： Navigation: http://0rz.tw/sMVGz
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"   // Navigation (Kotlin)
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation 'com.github.bumptech.glide:glide:4.11.0'                     // Glide
+    implementation 'com.airbnb.android:lottie:3.1.0'
+    implementation 'com.google.android:flexbox:1.1.1'
+
+
+
+    // Networking
+    implementation "com.squareup.okhttp3:okhttp:$ok_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"               // 與 Rxjava 配合的擴充包
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"                // 用於將請求結果轉換為實體類型
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"             // 用於將請求結果轉換為基本類型，一般為字符串
+    implementation "com.squareup.okhttp3:logging-interceptor:$ok_version"                   // 是為了配置緩存策略，必須跟okhttp同一版本號，否則會報錯
+
+    // 編程工具
+    implementation 'com.orhanobut:logger:2.2.0'                 // log 顯示
+    implementation 'com.google.code.gson:gson:2.8.5'            // JSON 處理
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'          // rxjava2 & rxandroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+}

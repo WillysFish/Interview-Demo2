@@ -1,0 +1,20 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.willy.interviewdemo2.ui.launch.LaunchFragment">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/anim_wifi_lookup"
+        android:layout_width="248dp"
+        android:layout_height="268dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:visibility="visible"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="line.json"
+        app:lottie_loop="false"
+        app:lottie_speed="1.5" />
+
+</FrameLayout>
