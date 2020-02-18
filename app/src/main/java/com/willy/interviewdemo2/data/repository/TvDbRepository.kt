@@ -10,8 +10,10 @@ import com.willy.interviewdemo2.extension.toDrama
 import com.willy.interviewdemo2.extension.toEntity
 import com.willy.interviewdemo2.utils.Log
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.*
+import kotlin.collections.ArrayList
 
 class TvDbRepository(private val dramaDao: DramaDao, private val searchTagDao: SearchTagDao) {
 
@@ -61,10 +63,26 @@ class TvDbRepository(private val dramaDao: DramaDao, private val searchTagDao: S
      * 依 keyword + 總觀看人數排序取得 Dramas
      */
     fun getDramasByKeyword(keyword: String) =
-        // 處理 keyword 接著搜尋資料
-        dramaDao.getDramasByKeyword(keyword.run {
-            "%" + replace(" ", "%").replace("+", "%") + "%"
-        }).map { it.toDramaArrayList() }
+        Observable.fromIterable(
+            // 轉換為 keyword array, 逐筆 trigger
+            keyword.split(" ", "+").map { "%$it%" }
+        ).flatMapSingle { searchWord ->
+            // 發射查詢 by keyword
+            dramaDao.getDramasByKeyword(searchWord).map { it.toDramaArrayList() }
+        }.toList( // 合併結果
+        ).flatMap { lists ->
+            // 轉換為不重複 Drama List
+            var result = ArrayList<Drama>()
+            lists.forEach { list ->
+                list.forEach {
+                    if (!result.contains(it)) result.add(it)
+                }
+            }
+            // 依觀看數排序
+            result = ArrayList(result.sortedByDescending { it.totalViews })
+            // 回傳查詢結果
+            Single.just(result)
+        }
 
 
     /**
@@ -76,6 +94,7 @@ class TvDbRepository(private val dramaDao: DramaDao, private val searchTagDao: S
      * SearchTagEntity List 轉 Keyword String ArrayList
      */
     private fun List<SearchTagEntity>.toKeywordArrayList() = map { it.keyword } as ArrayList
+
 
     /**
      * DB 排序選項
