@@ -60,10 +60,12 @@ class FirstFragment : BaseFragment() {
 
         // 清除關鍵字藏鍵盤
         clearIcon.setOnClickListener {
-            searchEdit.clearFocus()
-            searchEdit.setText("")
-            settingPrefs.setString(SettingPrefs.DB_KEY_LAST_SEARCH, "")
-            requireContext().hideKeyboard(it)
+            if (searchEdit.text.toString().trim().isNotEmpty()) {
+                searchEdit.clearFocus()
+                searchEdit.setText("")
+                settingPrefs.setString(SettingPrefs.DB_KEY_LAST_SEARCH, "")
+                requireContext().hideKeyboard(it)
+            }
         }
 
         // click tag 熱門

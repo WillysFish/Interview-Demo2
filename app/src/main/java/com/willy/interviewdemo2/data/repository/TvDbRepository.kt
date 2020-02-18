@@ -19,7 +19,7 @@ class TvDbRepository(private val dramaDao: DramaDao, private val searchTagDao: S
      * 將 tag 存進 DB, 已存在則更新 次數 & 時間
      */
     fun addTag(keyword: String) {
-        if (keyword.isEmpty()) return
+        if (keyword.trim().isEmpty()) return
 
         searchTagDao.getTagByKeyword(keyword)?.let {
             it.times += 1
