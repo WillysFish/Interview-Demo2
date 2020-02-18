@@ -69,19 +69,13 @@ class TvDbRepository(private val dramaDao: DramaDao, private val searchTagDao: S
         ).flatMapSingle { searchWord ->
             // 發射查詢 by keyword
             dramaDao.getDramasByKeyword(searchWord).map { it.toDramaArrayList() }
+        }.flatMap {
+            // 取出結果
+            Observable.fromIterable(it)
         }.toList( // 合併結果
-        ).flatMap { lists ->
-            // 轉換為不重複 Drama List
-            var result = ArrayList<Drama>()
-            lists.forEach { list ->
-                list.forEach {
-                    if (!result.contains(it)) result.add(it)
-                }
-            }
-            // 依觀看數排序
-            result = ArrayList(result.sortedByDescending { it.totalViews })
-            // 回傳查詢結果
-            Single.just(result)
+        ).flatMap { list ->
+            // remove 重復 item，依觀看數排序, 回傳查詢結果
+            Single.just(ArrayList(list.toSet().toList().sortedByDescending { it.totalViews }))
         }
 
 
