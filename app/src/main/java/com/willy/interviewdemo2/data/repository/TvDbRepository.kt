@@ -65,7 +65,7 @@ class TvDbRepository(private val dramaDao: DramaDao, private val searchTagDao: S
     fun getDramasByKeyword(keyword: String) =
         Observable.fromIterable(
             // 轉換為 keyword array, 逐筆 trigger
-            keyword.split(" ", "+").map { "%$it%" }
+            keyword.trim().split(" ", "+").map { "%$it%" }
         ).flatMapSingle { searchWord ->
             // 發射查詢 by keyword
             dramaDao.getDramasByKeyword(searchWord).map { it.toDramaArrayList() }
@@ -74,8 +74,26 @@ class TvDbRepository(private val dramaDao: DramaDao, private val searchTagDao: S
             Observable.fromIterable(it)
         }.toList( // 合併結果
         ).flatMap { list ->
-            // remove 重復 item，依觀看數排序, 回傳查詢結果
-            Single.just(ArrayList(list.toSet().toList().sortedByDescending { it.totalViews }))
+            var sortList = ArrayList<SearchWeights>()
+            // remove 重復 item，計算搜尋權重
+            list.forEach {
+                val weights = SearchWeights(it)
+                if (!sortList.contains(weights)) {
+                    sortList.add(weights)
+                } else {
+                    sortList[sortList.indexOf(weights)].count += 1
+                }
+            }
+
+            val result = ArrayList(sortList.sortedWith(
+                compareBy(
+                    { it.count },
+                    { it.views }
+                )
+            ).reversed().map { it.data })
+
+            // 依權重 & 觀看數排序, 回傳查詢結果
+            Single.just(result)
         }
 
 
@@ -100,4 +118,25 @@ class TvDbRepository(private val dramaDao: DramaDao, private val searchTagDao: S
         UPDATE_AT,
         TIMES
     }
+
+    /**
+     * 排序權重 object
+     */
+    class SearchWeights(val data: Drama) {
+        // 權重因子
+        var count = 0
+        val views = data.totalViews
+
+        override fun hashCode(): Int {
+            return data.hashCode()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (other is SearchWeights) {
+                return data == other.data
+            }
+            return super.equals(other)
+        }
+    }
+
 }
