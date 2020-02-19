@@ -2,7 +2,9 @@
 
 **_Demo Project For Interview_**
 
-**_About Room & Kotlin Extension & Search & Coordinatorlayout & Error_**
+**_About Room & Kotlin Extension & Coordinatorlayout & Error_**
+
+**_Search optimization for multiple keywords and optimization for the sorted way of result._**
 
 ---
 **_We used the following points of skill and libraries for the project:_**
