@@ -61,19 +61,25 @@ class FirstFragment : BaseFragment() {
         // 清除關鍵字藏鍵盤
         clearIcon.setOnClickListener {
             if (searchEdit.text.toString().trim().isNotEmpty()) {
-                searchEdit.clearFocus()
-                searchEdit.setText("")
-                settingPrefs.setString(SettingPrefs.DB_KEY_LAST_SEARCH, "")
-                requireContext().hideKeyboard(it)
+                resetSearch(it)
             }
         }
 
         // click tag 熱門
-        popularTag.setOnClickListener { viewModel.getPopularDramas() }
+        popularTag.setOnClickListener {
+            viewModel.getPopularDramas()
+            resetSearch(it)
+        }
         // click tag 最新
-        newestTag.setOnClickListener { viewModel.getNewestDramas() }
+        newestTag.setOnClickListener {
+            viewModel.getNewestDramas()
+            resetSearch(it)
+        }
         // click tag 評分最高
-        ratingTag.setOnClickListener { viewModel.getRatingDramas() }
+        ratingTag.setOnClickListener {
+            viewModel.getRatingDramas()
+            resetSearch(it)
+        }
     }
 
     private fun intiData() {
@@ -141,13 +147,27 @@ class FirstFragment : BaseFragment() {
             Observer<String> { if (it != null) showSnackbarLong(it) })
     }
 
-    // Click Action For RecyclerView
+    /**
+     * 重置搜尋列
+     */
+    private fun resetSearch(it: View) {
+        searchEdit.clearFocus()
+        searchEdit.setText("")
+        settingPrefs.setString(SettingPrefs.DB_KEY_LAST_SEARCH, "")
+        requireContext().hideKeyboard(it)
+    }
+
+    /**
+     * Click Action For RecyclerView
+     */
     private val dramaClick = { drama: Drama ->
         // 帶資料轉頁
         switchFragment(FirstFragmentDirections.actionFirstFragmentToSecondFragment(drama))
     }
 
-    // Click Action For Tags
+    /**
+     * Click Action For Tags
+     */
     private val tagClick = { keyword: String ->
         searchEdit.setText(keyword)
         viewModel.recordTag(keyword)
